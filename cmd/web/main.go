@@ -8,11 +8,14 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/Rif-7/text-bin/internal/models"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
 type application struct {
-	logger *slog.Logger
+	logger   *slog.Logger
+	snippets *models.SnippetModel
 }
 
 func main() {
@@ -25,10 +28,6 @@ func main() {
 		Level: slog.LevelDebug,
 	}))
 
-	app := &application{
-		logger: logger,
-	}
-
 	db, err := openDB(*dsn)
 	if err != nil {
 		logger.Error(err.Error())
@@ -36,6 +35,11 @@ func main() {
 	}
 
 	defer db.Close()
+
+	app := &application{
+		logger:   logger,
+		snippets: &models.SnippetModel{DB: db},
+	}
 
 	logger.Info("starting server", "addr", fmt.Sprintf("http://%s", *addr))
 
