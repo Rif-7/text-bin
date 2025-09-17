@@ -73,6 +73,23 @@ TextBin is a web application written in Go and MySQL for sharing and managing te
 make test
 ```
 
+## Advanced Setup
+
+You can customize the application's behavior using command-line flags:
+
+- `-addr`  
+  Set the HTTP network address (default: `127.0.0.1:4000`).
+- `-dsn`  
+  Set the MySQL data source name (default: `web:pass@/snippetbox?parseTime=true`).
+- `-debug`  
+  Enable debug mode for more detailed error messages (default: `false`).
+
+### Example
+
+```sh
+go run ./cmd/web -addr="0.0.0.0:8080" -dsn="web:yourpass@/snippetbox?parseTime=true" -debug=true
+```
+
 ## Project Structure
 
 - `cmd/web/` – Main application entry point, handlers, routes, middleware

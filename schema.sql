@@ -12,7 +12,7 @@ CREATE INDEX idx_snippets_created ON snippets(created);
 
 CREATE USER 'web'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON snippetbox.* TO 'web'@'localhost';
--- Important: Change 'pass' to a secure password of your choice.
+-- Important: Change 'pass' to a secure password of your choice and update ./cmd/web/main.go with new password
 ALTER USER 'web'@'localhost' IDENTIFIED BY 'pass';
 
 CREATE TABLE sessions (
