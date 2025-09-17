@@ -1,6 +1,15 @@
 # TextBin
 
-TextBin is a web application written in Go for sharing and managing text snippets. Users can view public snippets, create new ones after logging in, and set expiration times for their snippets.
+TextBin is a web application written in Go and MySQL for sharing and managing text snippets. Users can view public snippets, create new ones after logging in, and set expiration times for their snippets.
+
+## Screenshots
+
+![Home Page](screenshots/home.png)
+
+![View Snippet Page](screenshots/snippetview.png)
+
+![Create Snippet Page](screenshots/createsnippet.png)
+
 
 ## Features
 
@@ -21,13 +30,14 @@ TextBin is a web application written in Go for sharing and managing text snippet
 - Go `embed` package
 - Session management
 - HTTPS with TLS certificates
+- MySQL
 
 ## Getting Started
 
 ### Prerequisites
 
 - Go 1.24 or newer
-- MySQL (for production use)
+- MySQL 
 - TLS certificate and key files
 
 ### Running the Application
@@ -38,19 +48,25 @@ TextBin is a web application written in Go for sharing and managing text snippet
     cd text-bin
     ```
 
-2. Make sure you have TLS certificate and key files at `./tls/cert.pem` and `./tls/key.pem`.  
+2. Set up the database by running the provided schema file (make sure MySQL is running and update the password in `schema.sql` if needed):
+    ```sh
+    mysql -u root -p < schema.sql
+    ```
+
+3. Make sure you have TLS certificate and key files at `./tls/cert.pem` and `./tls/key.pem`.  
    You can generate self-signed certificates for development with:
     ```sh
     mkdir -p tls
     openssl req -x509 -newkey rsa:4096 -keyout tls/key.pem -out tls/cert.pem -days 365 -nodes -subj "/CN=localhost"
     ```
 
-3. Build and run:
+4. Build and run:
     ```sh
     make run
     ```
 
-4. Visit [https://localhost:4000](https://localhost:4000) in your browser.
+5. Visit [https://localhost:4000](https://localhost:4000) in your browser.
+
 ### Running Tests
 
 ```sh
